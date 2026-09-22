@@ -1,4 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+categories.db*
 app/controllers/__pycache__
+app/__pycache__
 app/models/__pycache__
 app/views/__pycache__
-categories.db

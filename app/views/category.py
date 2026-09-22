@@ -1,9 +1,9 @@
 """View: describe the JSON that clients receive, instead of HTML pages."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class CategoryView(BaseModel):
     id: int
     name: str
-    countries: list[str] = Field(default_factory=list)
+    countries: list[str] | None = None

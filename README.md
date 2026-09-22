@@ -37,7 +37,7 @@ For `GET /categories/1`:
 
 1. FastAPI calls `get_category()` in `app/controllers/category.py`.
 2. The controller asks `models.find_category(1)` for the category.
-3. The model reads the dictionary and returns the data.
+3. The model queries SQLite using SQLAlchemy Core and returns the data.
 4. The controller returns that data. FastAPI uses `CategoryView` from `app/views/category.py` to validate and serialize the JSON response.
 
 If the model returns `None`, the controller sends an HTTP 404 error. The model does not need to know what HTTP is.
@@ -57,6 +57,12 @@ uvicorn app.main:app --reload
 
 Open http://127.0.0.1:8000/docs to try the routes.
 
+Categories persist in `categories.db` in the project directory. On first startup,
+the app creates the table and inserts the four sample categories. Later restarts
+keep your changes, including deletions. Countries are stored as a JSON list.
+Writes use [SQLAlchemy transactions](https://docs.sqlalchemy.org/en/20/tutorial/dbapi_transactions.html).
+Table creation does not migrate an existing schema; add migrations when the schema changes.
+
 | Method | Path | Input |
 | --- | --- | --- |
 | GET | `/categories` | None |
@@ -64,5 +70,3 @@ Open http://127.0.0.1:8000/docs to try the routes.
 | POST | `/categories?name=business` | Name in the query string |
 | PATCH | `/categories/{category_id}` | JSON with `name` and `countries` |
 | DELETE | `/categories/{category_id}` | Category ID |
-
-
