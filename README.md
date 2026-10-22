@@ -57,7 +57,13 @@ uvicorn app.main:app --reload
 
 Open http://127.0.0.1:8000/docs to try the routes.
 
-Categories persist in `categories.db` in the project directory. On first startup,
+Or start it with Docker Compose:
+
+```sh
+docker-compose up --build
+```
+
+When run directly, categories persist in `categories.db` in the project directory. On first startup,
 the app creates the table and inserts the four sample categories. Later restarts
 keep your changes, including deletions. Countries are stored as a JSON list.
 Writes use [SQLAlchemy transactions](https://docs.sqlalchemy.org/en/20/tutorial/dbapi_transactions.html).
